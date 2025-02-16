@@ -1,9 +1,7 @@
 /*
-DTO (Data Transfer Object):
-DTO là một design pattern dùng để đóng gói và truyền dữ liệu giữa các thành phần/layer trong ứng dụng
-Là một class đơn giản chỉ chứa các thuộc tính (properties) và các phương thức getter/setter
-Không chứa bất kỳ business logic nào
-Mục đích chính là đóng gói dữ liệu để truyền qua network hoặc giữa các layer
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package dto;
 
