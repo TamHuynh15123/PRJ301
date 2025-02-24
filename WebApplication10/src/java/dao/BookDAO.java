@@ -50,7 +50,7 @@ public class BookDAO implements IDAO<BookDTO, String>{
     }
     
     public List<BookDTO> searchByTitle(String searchTerm) {
-        String sql = "SELECT * FROM tblBooks WHERE title LIKE ?";
+        String sql = "SELECT * FROM tblBooks WHERE title LIKE ? AND Quantity > 0";
         List<BookDTO> list = new ArrayList<BookDTO>();
         
         try {

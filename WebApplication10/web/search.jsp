@@ -25,17 +25,19 @@
         </form>
 
         <br/>
-
+        <% String searchTerm = request.getAttribute("searchTerm")+"";
+           searchTerm = searchTerm.equals("null")?"":searchTerm;
+            %>
         <form action="MainController">
             <input type="hidden" name="action" value="search"/>
-            Search Books: <input type="text" name="searchTerm"/>
+            Search Books: <input type="text" name="searchTerm" value="<%=searchTerm%>"/>
             <input type="submit" value="Search"/>
         </form>
 
         <%
             if (request.getAttribute("books") != null) {
                 List<BookDTO> books = (List<BookDTO>) request.getAttribute("books");
-
+            
         %>
         <table class="book-table">
             <thead>
@@ -58,6 +60,11 @@
                     <td><%=b.getPublishYear()%></td>
                     <td><%=b.getPrice()%></td>
                     <td><%=b.getQuantity()%></td>
+                    <td><a href = "MainController?action=delete
+                           &id=<%=b.getBookID()%>">
+                            <img src="img/Button-Delete-icon.png" style="height: 25px">
+                        </a></td>
+                   
                 </tr>
                 <%
                     }

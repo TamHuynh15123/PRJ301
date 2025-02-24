@@ -70,6 +70,7 @@ public class MainController extends HttpServlet {
                     String searchTerm = request.getParameter("searchTerm");
                     List<BookDTO> books = bdao.searchByTitle(searchTerm);
                     request.setAttribute("books", books);
+                    request.setAttribute("searchTerm", searchTerm);
                     url = "search.jsp";
                 }
             }
