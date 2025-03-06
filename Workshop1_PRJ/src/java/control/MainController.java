@@ -110,14 +110,13 @@ public class MainController extends HttpServlet {
 
                         if (success) {
                             request.getRequestDispatcher("welcome.jsp").forward(request, response);
-                            response.sendRedirect("welcome.jsp");  // ❌ Lỗi: Response đã commit trước đó
+
                         } else {
                             request.getRequestDispatcher("update.jsp").forward(request, response);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        response.sendRedirect("update.jsp?projectId=?" + request.getParameter("projectId")
-                                + "&error=ServerError");
+
                     }
 
                 } else if (action.equals("add")) {
@@ -157,6 +156,9 @@ public class MainController extends HttpServlet {
                                 if (projectName == null || projectName.trim().isEmpty()) {
                                     checkError = true;
                                     request.setAttribute("txtProjectName_error", "Project Name is required.");
+                                } else if (projectName.trim().matches("\\d+")) {
+                                    checkError = true;
+                                    request.setAttribute("txtProjectName_error", "Project Name cannot be a number.");
                                 }
 
                                 ProjectDTO project = new ProjectDTO(projectId, projectName, description, status, estimatedLaunch);

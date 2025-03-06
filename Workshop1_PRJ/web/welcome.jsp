@@ -9,31 +9,31 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-16WWW">
         <title>JSP Page</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .delete-btn {
-            color: red;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .update-btn {
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: center;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .delete-btn {
+                color: red;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .update-btn {
                 color: blue;
                 font-weight: bold;
                 cursor: pointer;
             }
-    </style>
+        </style>
 
 
     </head>
@@ -43,16 +43,21 @@
         <%                if (session.getAttribute("user") != null) {
                 DTO user = (DTO) session.getAttribute("user");
         %>
-        <h1>Welcome <%=user.getName()%></h1>
-    <form action="MainController" method="post">
-        <input type="hidden" name="action" value="logout">
-        <button type="submit">Logout</button>
-    </form>
+        <h1 style="color: red">Welcome <%=user.getName()%></h1>
+        
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="logout">
+            <button type="submit">Logout</button>
+        </form>
+        <% String message = (String) request.getAttribute("message");
+           if (message != null) { %>
+           <div class="success-message"><%= message %></div>
+        <% } %>
         <%
             String searchTerm = request.getAttribute("searchTerm") + "";
             searchTerm = searchTerm.equals("null") ? "" : searchTerm;
         %>
-        
+
         <% if (session.getAttribute("user") != null) {
                 DTO user1 = (DTO) session.getAttribute("user");
                 if (user1.getRole().equals("Founder")) {
@@ -63,9 +68,9 @@
             <input type="text" id="searchInput" name="searchTerm" value="<%=searchTerm%>" class="search-input" placeholder="Enter project name"/>
             <input type="submit" value="Search" class="search-btn"/>
         </form>
-            <%}
-            }%>
-            
+        <%}
+                }%>
+
         <% if (session.getAttribute("user") != null) {
                 DTO user1 = (DTO) session.getAttribute("user");
                 if (user1.getRole().equals("Founder")) {
@@ -94,7 +99,7 @@
 
                     <th>Action</th>
                         <%}
-                        }%>
+                            }%>
                 </tr>
             </thead>
             <tbody>
@@ -116,18 +121,19 @@
                             <img src="img/icons8-update-60.png" style="height: 20px">
                             <button type="submit" class="update-btn">Update</button>
                         </form>
+                        
                     </td>
-                        <%
-                                }
+                    <%
                             }
-                        %>
+                        }
+                    %>
                 </tr>
                 <%
                     }
                 %>
             </tbody>
         </table>
-            
+
         <%    }
             }%>
     </div>
