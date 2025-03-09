@@ -160,6 +160,11 @@ public class MainController extends HttpServlet {
                                     checkError = true;
                                     request.setAttribute("txtProjectName_error", "Project Name cannot be a number.");
                                 }
+                                //Check description
+                                if (description == null || description.trim().isEmpty()) {
+                                    checkError = true;
+                                    request.setAttribute("txtProjectName_error", "Project Name is required.");
+                                }
 
                                 ProjectDTO project = new ProjectDTO(projectId, projectName, description, status, estimatedLaunch);
 

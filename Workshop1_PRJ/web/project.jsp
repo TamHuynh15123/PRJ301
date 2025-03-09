@@ -36,7 +36,8 @@
             txtProjectName_error = txtProjectName_error.equals("null") ? "" : txtProjectName_error;
             String txtEstimatedLaunch_error = request.getAttribute("txtEstimatedLaunch_error") + "";
             txtEstimatedLaunch_error = txtEstimatedLaunch_error.equals("null") ? "" : txtEstimatedLaunch_error;
-
+            String txtDescriptiotn_error = request.getAttribute("txtDescription_error") + "";
+            txtDescriptiotn_error = txtDescriptiotn_error.equals("null") ? "" : txtDescriptiotn_error;
 
         %>
 
@@ -87,6 +88,36 @@
 
 
 
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
 
 
 
