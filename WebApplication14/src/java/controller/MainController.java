@@ -111,7 +111,7 @@ public class MainController extends HttpServlet {
                 int publishYear = Integer.parseInt(request.getParameter("txtPublishYear"));
                 double price = Double.parseDouble(request.getParameter("txtPrice"));
                 int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
-
+                String img = request.getParameter("txtImage");
                 if (bookID == null || bookID.trim().isEmpty()) {
                     checkError = true;
                     request.setAttribute("txtBookID_error", "Book ID cannot be empty.");
@@ -122,7 +122,7 @@ public class MainController extends HttpServlet {
                     request.setAttribute("txtQuantity_error", "Quantity >=0.");
                 }
 
-                BookDTO book = new BookDTO(bookID, title, author, publishYear, price, quantity);
+                BookDTO book = new BookDTO(bookID, title, author, publishYear, price, quantity,img );
 
                 if (!checkError) {
                     bookDAO.create(book);
@@ -133,6 +133,65 @@ public class MainController extends HttpServlet {
                     request.setAttribute("book", book);
                 }
             } catch (Exception e) {
+            }
+        }
+        return url;
+    }
+    public String processUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String url = LOGIN_PAGE;
+        HttpSession session = request.getSession();
+        if (AuthUtils.isAdmin(session)) {
+            try {
+                boolean checkError = false;
+                String bookID = request.getParameter("txtBookID");
+                String title = request.getParameter("txtTitle");
+                String author = request.getParameter("txtAuthor");
+                int publishYear = Integer.parseInt(request.getParameter("txtPublishYear"));
+                double price = Double.parseDouble(request.getParameter("txtPrice"));
+                int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+                String img = request.getParameter("txtImage");
+                if (bookID == null || bookID.trim().isEmpty()) {
+                    checkError = true;
+                    request.setAttribute("txtBookID_error", "Book ID cannot be empty.");
+                }
+
+                if (quantity < 0) {
+                    checkError = true;
+                    request.setAttribute("txtQuantity_error", "Quantity >=0.");
+                }
+
+                BookDTO book = new BookDTO(bookID, title, author, publishYear, price, quantity, img);
+
+                if (!checkError) {
+                    bookDAO.update(book);
+                    // search
+                    url = "search.jsp";
+                    processSearch(request, response);
+                } else {
+                    request.setAttribute("book", book);
+                    url = "bookForm.jsp";
+                    
+                }
+            } catch (Exception e) {
+            }
+        }
+        return url;
+    }
+    private String processEdit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String url = LOGIN_PAGE;
+        HttpSession session = request.getSession();
+        if (AuthUtils.isAdmin(session)) {
+            String id = request.getParameter("id");
+            BookDTO book = bookDAO.readById(id);
+            if (book != null) {
+                request.setAttribute("book", book);
+                request.setAttribute("action", "update");
+                url = "bookForm.jsp";
+            } else {
+                // search
+                url = processSearch(request, response);
             }
         }
         return url;
@@ -158,6 +217,10 @@ public class MainController extends HttpServlet {
                     url = processDelete(request, response);
                 } else if (action.equals("add")) {
                     url = processAdd(request, response);
+                } else if (action.equals("edit")) {
+                    url = processEdit(request, response);
+                } else if (action.equals("update")) {
+                    url = processUpdate(request, response);
                 }
             }
         } catch (Exception e) {

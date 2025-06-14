@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author tungi
+ * @author HP
  */
 public class AuthUtils {
 
